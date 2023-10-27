@@ -21,13 +21,6 @@ export class GridComponent implements OnInit {
   }
 
   onSelectAll($event: any) {
-    // this.listOfData = this.listOfData.slice(0, 10).map((res: any) => {
-    //   return {
-    //     ...res,
-    //     checked: $event,
-    //   };
-    // });
-
     this.listOfData = this.listOfData.map((res: any, index: number) => {
       return {
         ...res,
