@@ -1,0 +1,26 @@
+.grid-container {
+    width: 100%;
+    height: 100%;
+    &__pagination{
+        margin-top: 1rem;
+    }
+    &__table-wrapper{
+        height: calc(100% - 3rem);
+        width: 100%;
+    }
+    .action-btns{
+        display: flex;
+        gap: 0.5rem;
+    
+        &__edit{
+            cursor: pointer;
+        }
+
+        &__delete{
+            cursor: pointer;
+            color: red;
+        }
+    }
+}
+
+
