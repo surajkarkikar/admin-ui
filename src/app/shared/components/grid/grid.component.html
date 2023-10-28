@@ -1,6 +1,12 @@
 <div class="grid-container">
   <div class="grid-container__table-wrapper">
-    <nz-table #basicTable [nzFrontPagination]="false" [nzData]="listOfData" [nzTemplateMode]="true" [nzShowPagination]="false" [nzScroll]="{ x: '900px', y: '500px' }">
+    <nz-table
+      #basicTable
+      [nzFrontPagination]="false"
+      [nzData]="listOfData"
+      [nzTemplateMode]="true"
+      [nzShowPagination]="false"
+    >
       <thead>
         <tr>
           <th>
@@ -45,6 +51,11 @@
     </nz-table>
   </div>
   <div class="grid-container__pagination">
-    <app-pagination (deleteRow)="onSelectOfDeleteRow()" (pagination)="onPagination($event)"></app-pagination>
+    <app-pagination
+      (changePage)="changePagination($event)"
+      (deleteRow)="onSelectOfDeleteRow()"
+      [total]="listOfData?.length"
+      [currentPage]="currentPage"
+    ></app-pagination>
   </div>
 </div>

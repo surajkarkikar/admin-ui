@@ -32,13 +32,14 @@ export class AppComponent implements OnInit {
       this.searchData = res
       this.data = res;
     });
+    this.searchData = this.data.slice(0,10)
   }
   search(event: any) {
     this.searchData = this.data.filter((res: any) =>
       [res.name, res.role, res.email].some((value: string) =>
         value.includes(event)
       )
-    ).slice(0,10);
+    )
   }
 
   deleteRow(event:any){
@@ -46,7 +47,6 @@ export class AppComponent implements OnInit {
       return res.id !== event.id;
     })
     this.data = this.searchData;
-    this.searchData.slice(0,10)
   }
 
   handleOk(): void {
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
       return res
     })
     this.data=this.searchData
-    this.searchData.slice(0,10)
+    this.searchData;
   }
 
   handleCancel(): void {
@@ -77,6 +77,10 @@ export class AppComponent implements OnInit {
   deleteSelectedData(event:any){
     this.data = event;
     this.searchData = event;
+  }
+
+  onPagination(event:any){
+    this.searchData = this.data.slice((event-1)*10,((event-1)*10)+10);
   }
 
 }

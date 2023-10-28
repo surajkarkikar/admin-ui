@@ -2,9 +2,9 @@
     <div class="main-container__search-bar">
         <app-search-bar (searchData)="search($event)"></app-search-bar>
     </div>
-    <div class="main-container__grid-wrapper" >
+    <div class="main-container__grid-wrapper" *ngIf="searchData?.length" >
         <app-grid [listOfData]="searchData" (deleteRow)="deleteRow($event)" (editRow)="editRow($event)"
-            (updateData)="deleteSelectedData($event)"></app-grid>
+            (updateData)="deleteSelectedData($event)" (paginationEvent)="onPagination($event)"></app-grid>
     </div>
 </div>
 

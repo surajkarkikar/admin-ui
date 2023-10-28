@@ -7,18 +7,16 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements OnInit {
-  checked: any;
   @Input() listOfData: any;
   @Output() deleteRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
   @Output() updateData = new EventEmitter<any>();
-  
-
+  @Output() paginationEvent = new EventEmitter<any>();
+  currentPage: number = 1;
+  checked: any;
   constructor(private notification: NzNotificationService) {}
 
-  ngOnInit(): void {
-    this.listOfData = this.listOfData?.slice(0, 10);
-  }
+  ngOnInit(): void {}
 
   onSelectAll($event: any) {
     this.listOfData = this.listOfData.map((res: any, index: number) => {
@@ -51,9 +49,8 @@ export class GridComponent implements OnInit {
     this.updateData.emit(this.listOfData);
   }
 
-  onPagination(source: string) {
-    if(source==='NEXT_PAGE'){
-      this
-    }
+  changePagination(event: any) {
+    this.currentPage = event;
+    this.paginationEvent.emit(event);
   }
 }

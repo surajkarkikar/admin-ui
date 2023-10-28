@@ -1,5 +1,5 @@
 <div class="pagination-wrapper">
-    <div>
+    <div class="pagination-wrapper__delete-all">
         <button nz-button nzType="default" nzDanger (click)="onClickOfDeleteSelected()">
             Delete selected
         </button>
@@ -8,11 +8,13 @@
         <button class="page-btn" (click)="paginationEvent('FIRST_PAGE')">
             <span nz-icon nzType="double-left" nzTheme="outline"></span>
         </button>
-        <button class="page-btn" (click)="paginationEvent('PREVIOUS_PAGE')">
+        <button class="page-btn" (click)="paginationEvent('PREVIOUS_PAGE',currentPage-1)">
             <span nz-icon nzType="left" nzTheme="outline"></span>
         </button>
-        <div class="page-numbers" (click)="paginationEvent('CURRENT_PAGE')">
-            <span>1</span>
+        <div class="number-wrapper">
+            <div class="page-numbers" (click)="paginationEvent('CURRENT_PAGE',page)" *ngFor="let page of pages" [ngClass]="{active: currentPage === page}">
+                <span>{{page}}</span>
+            </div>
         </div>
         <button class="page-btn" (click)="paginationEvent('NEXT_PAGE')">
             <span nz-icon nzType="right" nzTheme="outline"></span>
