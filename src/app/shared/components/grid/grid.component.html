@@ -23,8 +23,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data">
-          <td><label nz-checkbox [(ngModel)]="data.checked"></label></td>
+        <tr *ngFor="let data of basicTable.data" [ngClass]="{'highlighted-row': data.checked}">
+          <td><label nz-checkbox [(ngModel)]="data.checked" ></label></td>
           <td>{{ data.name }}</td>
           <td>{{ data.email }}</td>
           <td>{{ data.role }}</td>
