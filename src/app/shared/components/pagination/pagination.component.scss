@@ -28,6 +28,7 @@
 .page-btn:hover {
     color: white;
     background-color: #4884ee;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .page-numbers {
@@ -46,6 +47,8 @@
     color: white;
     background-color: #4884ee;
     padding: 16px 12px;
+    transform: scale(1.05); /* Slightly scale the active button */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle shadow when active */
 }
 
 .number-wrapper {
@@ -55,8 +58,6 @@
     background-color: #e3e3e3;
     border-radius: 14px;
 }
-
-
 
 @media screen and (max-width: 570px) {
     .pagination-wrapper {

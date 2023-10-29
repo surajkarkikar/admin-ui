@@ -3,7 +3,7 @@
     <nz-table
       #basicTable
       [nzFrontPagination]="false"
-      [nzData]="listOfData.slice(spliceValue.start,spliceValue.end)"
+      [nzData]="listOfData.slice(spliceValue.start,spliceValue.end) || []"
       [nzTemplateMode]="true"
       [nzShowPagination]="false"
     >
