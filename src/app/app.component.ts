@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   isVisible = false;
   adminForm!:FormGroup;
   rowId: any;
+  searchKey: any;
 
   constructor(private adminService: AdminService,private fb:FormBuilder) {}
   ngOnInit(): void {
@@ -27,26 +28,29 @@ export class AppComponent implements OnInit {
       role:[data.role]
     })
   }
+
   public getUsersList() {
     this.adminService.getUsersList().subscribe((res: any) => {
-      this.searchData = res
       this.data = res;
+      this.searchData = this.data;
     });
-    this.searchData = this.data.slice(0,10)
   }
+
   search(event: any) {
+    this.searchKey=event;
     this.searchData = this.data.filter((res: any) =>
       [res.name, res.role, res.email].some((value: string) =>
         value.includes(event)
       )
-    )
+    );
   }
 
   deleteRow(event:any){
-    this.searchData =  this.data.filter((res:any)=>{
+    this.data =this.data.filter((res:any)=>{
       return res.id !== event.id;
     })
-    this.data = this.searchData;
+    this.searchData=this.data;
+    this.searchKey=null;
   }
 
   handleOk(): void {
@@ -60,8 +64,7 @@ export class AppComponent implements OnInit {
       }
       return res
     })
-    this.data=this.searchData
-    this.searchData;
+    this.data=this.searchData;
   }
 
   handleCancel(): void {
@@ -75,12 +78,17 @@ export class AppComponent implements OnInit {
   }
 
   deleteSelectedData(event:any){
-    this.data = event;
-    this.searchData = event;
+    event.forEach((res:any)=>{
+      if(res.checked){
+        this.data=this.data.filter((rs:any)=>rs.id!==res.id);
+      }
+    })
+    this.searchData = this.data;
+    this.searchKey=null;
   }
 
   onPagination(event:any){
-    this.searchData = this.data.slice((event-1)*10,((event-1)*10)+10);
+    // this.searchData = this.data.slice((event-1)*10,((event-1)*10)+10);
   }
 
 }

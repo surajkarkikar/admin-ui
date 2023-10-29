@@ -1,5 +1,5 @@
 <nz-input-group [nzSuffix]="suffixIconSearch">
-  <input type="text" nz-input placeholder="Search by name, email or role" (keyup)="search($event)"/>
+  <input type="text" [ngModel]="searchKey" nz-input placeholder="Search by name, email or role" (keyup)="search($event)"/>
 </nz-input-group>
 <ng-template #suffixIconSearch>
   <span nz-icon nzType="search"></span>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -6,24 +6,41 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent implements OnInit {
-  @Input() listOfData: any;
+export class GridComponent implements OnInit,OnChanges {
+  @Input() listOfData: any=[];
   @Output() deleteRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
-  @Output() updateData = new EventEmitter<any>();
+  @Output() deleteSelectedRow = new EventEmitter<any>();
   @Output() paginationEvent = new EventEmitter<any>();
   currentPage: number = 1;
   checked: any;
+  spliceValue={
+    start:0,
+    end:10
+  }
   constructor(private notification: NzNotificationService) {}
 
   ngOnInit(): void {}
 
+  ngOnChanges(changes: any
+    ): void {
+      if(changes?.listOfData){
+        this.currentPage=1;
+        this.updateSplicingValue();
+      }
+    
+  }
+
+ 
+
   onSelectAll($event: any) {
-    this.listOfData = this.listOfData.map((res: any, index: number) => {
-      return {
-        ...res,
-        checked: index < 10 ? $event : false,
-      };
+    this.listOfData.forEach((res: any, index: number) => {
+      if(index>=this.spliceValue.start && index<this.spliceValue.end){
+        res.checked=$event;        
+      }
+      else{
+        res.checked=false;
+      }
     });
   }
 
@@ -37,20 +54,32 @@ export class GridComponent implements OnInit {
 
   onSelectOfDeleteRow() {
     this.checked = false;
-    const initialLength = this.listOfData.length;
-    this.listOfData = this.listOfData.filter((res: any) => !res.checked);
-    if (this.listOfData.length === initialLength) {
-      this.notification.create(
-        'warning',
-        'No rows selected',
-        'Please check rows to delete'
-      );
+    // const initialLength = this.listOfData.length;
+    // this.listOfData = this.listOfData.filter((res: any) => !res.checked);
+    // if (this.listOfData.length === initialLength) {
+    //   this.notification.create(
+    //     'warning',
+    //     'No rows selected',
+    //     'Please check rows to delete'
+    //   );
+    // }
+    this.deleteSelectedRow.emit(this.listOfData);
+  }
+
+  updateSplicingValue(){
+    this.spliceValue={
+      start:(this.currentPage-1)*10,
+      end:((this.currentPage-1)*10)+10
     }
-    this.updateData.emit(this.listOfData);
   }
 
   changePagination(event: any) {
+    this.listOfData.forEach((res:any)=>{
+      res.checked=false;
+    })
+    this.checked=false;
     this.currentPage = event;
+    this.updateSplicingValue();
     this.paginationEvent.emit(event);
   }
 }

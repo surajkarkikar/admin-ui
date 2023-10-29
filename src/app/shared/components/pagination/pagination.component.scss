@@ -61,14 +61,14 @@
 @media screen and (max-width: 570px) {
     .pagination-wrapper {
         flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
-        margin: 12px;
+        gap: 6px;
 
         &__delete-all{
             width: 100%;
-            display: flex;
-            justify-content: flex-start;
+
+            button{
+                width: 100%;
+            }
         }
     }
 }

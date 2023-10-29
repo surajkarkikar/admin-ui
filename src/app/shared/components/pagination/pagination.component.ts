@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnChanges {
   @Input() currentPage: number = 1;
   @Input() total: number = 0;
   @Input() pageLimit: number = 10;
@@ -15,9 +15,11 @@ export class PaginationComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    const pagesCount = Math.ceil(this.total / this.pageLimit);
-    this.pages = this.range(1, pagesCount);
+  ngOnChanges(changes: any): void {
+    if(changes?.total){
+      const pagesCount = Math.ceil(this.total / this.pageLimit);
+      this.pages = this.range(1, pagesCount);
+    }
   }
 
   onClickOfDeleteSelected() {
